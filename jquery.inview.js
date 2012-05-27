@@ -68,7 +68,6 @@
         var $element      = $($elements[i]),
             elementSize   = { height: $element.height(), width: $element.width() },
             elementOffset = $element.offset(),
-            inView        = $element.data('inview'),
             visiblePartX,
             visiblePartY,
             visiblePartsMerged;
@@ -93,11 +92,7 @@
             'bottom' : (viewportOffset.top + viewportSize.height) < (elementOffset.top + elementSize.height) ?
             'top' : 'both');
           visiblePartsMerged = visiblePartX + "-" + visiblePartY;
-          if (!inView || inView !== visiblePartsMerged) {
-            $element.data('inview', visiblePartsMerged).trigger('inview', [true, visiblePartX, visiblePartY]);
-          }
-        } else if (inView) {
-          $element.data('inview', false).trigger('inview', [false]);
+          $element.trigger('inview', [true, visiblePartX, visiblePartY]);
         }
       }
     }
