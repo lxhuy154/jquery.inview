@@ -103,7 +103,5 @@
     checkInView();
   });
 
-  $(d).bind("inviewcheck", function() {
-    checkInView();
-  });
+  $.inviewCheck = checkInView;
 })(jQuery);
