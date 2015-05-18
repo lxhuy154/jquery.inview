@@ -3,9 +3,27 @@
  *    - based on the idea of Remy Sharp, http://remysharp.com/2009/01/26/element-in-view-event-plugin/
  *    - forked from http://github.com/zuk/jquery.inview/
  */
-(function ($) {
-  var inviewObjects = {}, viewportSize, viewportOffset,
-      d = document, w = window, documentElement = d.documentElement, expando = $.expando;
+
+// UMD returnExports
+(function(root, factory) {
+
+  // AMD
+  if (typeof define === "function" && define.amd) {
+    define(["jquery"], factory);
+
+  // Global
+  } else {
+    factory(root.jQuery);
+  }
+}(this, function($) {
+
+  var viewportSize, viewportOffset;
+  var d = document;
+  var expando = $.expando;
+  var inviewObjects = {};
+  var w = window;
+
+  var documentElement = d.documentElement;
 
   $.event.special.inview = {
     add: function(data) {
@@ -104,4 +122,4 @@
   });
 
   $.inviewCheck = checkInView;
-})(jQuery);
+}));
