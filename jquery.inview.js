@@ -17,7 +17,7 @@
   }
 }(this, function($) {
 
-  var viewportSize, viewportOffset;
+  var timer, viewportSize, viewportOffset;
   var d = document;
   var expando = $.expando;
   var inviewObjects = {};
@@ -28,6 +28,15 @@
   $.event.special.inview = {
     add: function(data) {
       inviewObjects[data.guid + "-" + this[expando]] = { data: data, $element: $(this) };
+
+      // Check it once as soon as events are bound to make sure elements already
+      // inview are captured.
+      if (!timer && !$.isEmptyObject(inviewObjects)) {
+       timer = setTimeout(function() {
+         timer = null;
+         checkInView();
+       }, 250);
+      }
     },
 
     remove: function(data) {
