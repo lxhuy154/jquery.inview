@@ -11,6 +11,10 @@
   if (typeof define === "function" && define.amd) {
     define(["jquery"], factory);
 
+  // Node, CommonJS
+  } else if (typeof exports === "object") {
+    module.exports = factory(require("jquery"));
+
   // Global
   } else {
     factory(root.jQuery);
